@@ -1,0 +1,113 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
+  ~ Copyright (c) 2018, Xuliang Huang. All rights reserved.
+  --%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>完善用户详细信息</title>
+<base href="http://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"/>
+<style type="text/css">
+	
+	table {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	
+	table td{
+		border: 1px solid black;
+	}
+	
+	textarea {
+		width: 300px;
+		height: 200px;
+	}
+	
+</style>
+</head>
+<body>
+
+	<%-- request.getAttribute("detail"); --%>
+	<form:form action="demo/modify" 
+			method="post" 
+			modelAttribute="detail" 
+			enctype="multipart/form-data">
+		
+		<form:hidden path="userId"/>
+		<form:hidden path="detailId"/>
+		
+		<table>
+			<tr>
+				<td>昵称</td>
+				<td>
+					<form:input path="userNick"/>
+				</td>
+			</tr>
+			<tr>
+				<td>性别</td>
+				<td>
+					<!-- <input type="radio" name="userGender" value="0"/>男 -->
+					<!-- <input type="radio" name="userGender" value="1"/>女 -->
+					<% 
+						Map<String, Object> radioMap = new HashMap<String, Object>();
+						radioMap.put("0", "男");
+						radioMap.put("1", "女");
+						pageContext.setAttribute("radioMap", radioMap);
+					%>
+					<form:radiobuttons path="userGender" items="${radioMap }"/>
+				</td>
+			</tr>
+			<tr>
+				<td>职业</td>
+				<td>
+					<form:input path="userJob"/>
+				</td>
+			</tr>
+			<tr>
+				<td>家乡</td>
+				<td>
+					<form:input path="userHometown"/>
+				</td>
+			</tr>
+			<tr>
+				<td>自我介绍</td>
+				<td>
+					<form:textarea path="userDesc"/>
+				</td>
+			</tr>
+			<c:if test="${!empty detail.userPicGroup }">
+				<tr>
+					<td>旧照片</td>
+					<td><img src="http://192.168.0.247/${requestScope.detail.userPicGroup }/${requestScope.detail.userPicFileName}"/></td>
+				</tr>
+			</c:if>
+			<tr>
+				<td>新照片</td>
+				<td>
+					<input type="file" name="uploadFile"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="保存"/>
+				</td>
+			</tr>
+		</table>
+		
+	</form:form>
+	
+	<br/><br/>
+	
+	<a href="index.jsp">回首页</a>
+	
+	<br/><br/>
+
+</body>
+</html>

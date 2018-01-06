@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017, Xuliang Huang. All rights reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置当前应用的名称 -->
+    <dubbo:application name="demo-consumer"/>
+
+    <!-- 指定注册中心位置 -->
+    <dubbo:registry protocol="zookeeper" address="zookeeper://localhost:2181"/>
+
+    <!-- 指定接口 -->
+    <dubbo:reference id="demoRemoteInterface" interface="com.atguigu.demo.interfaces.DemoRemoteInterface"/>
+
+
+    <context:component-scan base-package="com.atguigu.demo.handlers"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
+    <mvc:view-controller path="/demo/toRegistPage" view-name="demo-regist"/>
+    <mvc:view-controller path="/demo/toLoginPage" view-name="demo-login"/>
+</beans>

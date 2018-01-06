@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common" />
+        <module name="consumer" />
+        <module name="interface" />
+        <module name="Lucene" />
+        <module name="provider" />
+        <module name="Solr" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="consumer" target="1.8" />
+      <module name="Demo-project" target="1.8" />
+      <module name="interface" target="1.8" />
+      <module name="Lucene" target="1.8" />
+      <module name="provider" target="1.8" />
+      <module name="Solr" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 配置通用Mapper的插件 -->
+	<plugins>
+		<!-- 配置通用Mapper插件的拦截器 -->
+		<plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">
+		    <property name="mappers" value="com.github.abel533.mapper.Mapper"/>
+		</plugin>
+	</plugins>
+</configuration>

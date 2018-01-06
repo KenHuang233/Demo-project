@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <settings default="HXL-Copyright">
+    <module2copyright>
+      <element module="HXL-Scope" copyright="HXL-Copyright" />
+    </module2copyright>
+  </settings>
+</component>
