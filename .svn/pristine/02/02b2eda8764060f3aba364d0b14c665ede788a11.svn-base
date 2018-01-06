@@ -1,0 +1,83 @@
+///*
+// * Copyright (c) 2018, Xuliang Huang. All rights reserved.
+// */
+//
+//package com.atguigu.demo.test;
+//
+//import org.csource.common.MyException;
+//import org.csource.common.NameValuePair;
+//import org.csource.fastdfs.*;
+//import org.junit.Test;
+//
+//import java.io.IOException;
+//import java.net.URL;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
+//
+//public class FastDFSTest {
+//    private static StorageClient storageClient;
+//
+//    static {
+//        try {
+//            String path = "/tracker.conf";
+//            URL url = FastDFSTest.class.getResource(path);
+//            String absolutePath = url.getPath();
+//
+//            ClientGlobal.init(absolutePath);
+//
+//            TrackerClient trackerClient = new TrackerClient();
+//            TrackerServer trackerServer = trackerClient.getConnection();
+//            StorageServer storageServer = null;
+//            storageClient = new StorageClient(trackerServer, storageServer);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (MyException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    public void testUpload() throws IOException, MyException {
+//        String localFileName = "/Users/HXL/Pictures/images.jpeg";
+//        String fileExtName = "jpeg";
+//        NameValuePair[] metaList = null;
+//        String[] result = storageClient.upload_file(localFileName, fileExtName, metaList);
+//
+//        for (String s : result) {
+//            System.out.println(s);
+//        }
+//    }
+//
+//    @Test
+//    public void testDelete() throws IOException, MyException {
+//        String groupName = "group1";
+//        String remoteFileName = "M00/00/00/wKgA91pN2EmAQrg6AAAhGP_dnVQ26.jpeg";
+//        int i = storageClient.delete_file(groupName, remoteFileName);
+//        System.out.println("code: " + i);
+//    }
+//
+//    @Test
+//    public void testGetInfo() throws IOException, MyException {
+//        String groupName = "group1";
+//        String remoteFileName = "M00/00/00/wKgA91pN2wOAKnc5AAAhGP_dnVQ22.jpeg";
+//        FileInfo fileInfo = storageClient.get_file_info(groupName, remoteFileName);
+//        if (fileInfo == null) {
+//            System.out.println("无法识别的文件");
+//            return;
+//        } else {
+//            String sourceIpAddr = fileInfo.getSourceIpAddr();
+//            System.out.println("IP: " + sourceIpAddr);
+//
+//            Date createTimestamp = fileInfo.getCreateTimestamp();
+//            System.out.println("创建时间: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(createTimestamp));
+//
+//            long fileSize = fileInfo.getFileSize();
+//            System.out.println("大小: " + fileSize);
+//
+//            long crc32 = fileInfo.getCrc32();
+//            System.out.println("加密: " + crc32);
+//
+//        }
+//    }
+//
+//}

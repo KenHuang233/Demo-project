@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2017, Xuliang Huang. All rights reserved.
+ */
+
+package com.atguigu.demo.handlers;
+
+import com.atguigu.demo.interfaces.DemoRemoteInterface;
+import com.atguigu.demo.pojo.DubboResult;
+import com.atguigu.demo.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Map;
+
+@Controller
+public class DemoHandler {
+
+    @Autowired
+    private DemoRemoteInterface demoRemoteInterface;
+
+    @RequestMapping("/demo/regist")
+    public String regist(User user, Map<String, Object> map) {
+
+        DubboResult result = demoRemoteInterface.doRegistRemote(user);
+
+        String operationResult = result.getOperationResult();
+
+        if (DubboResult.OK.equals(operationResult)) {
+
+            return "redirect:/demo/toLoginPage";
+
+        } else if (DubboResult.FAILED.equals(operationResult)) {
+            map.put("message", "用户名已存在，请重新注册！");
+            return "demo-regist";
+        }
+
+        return "redirect:/index.jsp";
+    }
+
+    @RequestMapping("/demo/test")
+    public String test(Map<String, Object> map) {
+
+        String result = demoRemoteInterface.getMessageForTest("小刚刚");
+        map.put("result", result);
+
+        return "demo-result";
+    }
+}

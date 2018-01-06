@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2017, Xuliang Huang. All rights reserved.
+ */
+
+package com.atguigu.demo.test;
+
+
+import com.atguigu.demo.mappers.UserMapper;
+import com.atguigu.demo.pojo.User;
+import com.atguigu.demo.service.UserService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.sql.SQLException;
+import java.util.List;
+
+@RunWith(value = SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(locations = {"classpath:provider.xml"})
+public class IOCTest {
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Test
+    public void testConnection() throws SQLException {
+        User user = new User(18, "wxx", null);
+        List<User> users = userMapper.select(user);
+        System.out.println(userMapper.selectCount(user));
+
+        for (User eachUser : users) {
+            System.out.println(eachUser);
+        }
+    }
+
+    @Test
+    public void testTx() {
+        boolean exists = userService.checkUserNameExists("hxl");
+        System.out.println(exists);
+    }
+
+}

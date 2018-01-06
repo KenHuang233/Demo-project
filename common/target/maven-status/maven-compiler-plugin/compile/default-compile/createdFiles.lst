@@ -1,0 +1,5 @@
+com/atguigu/demo/utils/GsonUtils.class
+com/atguigu/demo/pojo/User.class
+com/atguigu/demo/pojo/Detail.class
+com/atguigu/demo/utils/FastDFSUtils.class
+com/atguigu/demo/pojo/DubboResult.class

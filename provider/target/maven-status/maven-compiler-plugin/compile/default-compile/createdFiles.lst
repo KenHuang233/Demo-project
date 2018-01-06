@@ -1,0 +1,5 @@
+com/atguigu/demo/remote/implement/DemoRemoteImpl.class
+com/atguigu/demo/service/UserService.class
+com/atguigu/demo/mappers/UserDetailMapper.class
+com/atguigu/demo/service/UserServiceImple.class
+com/atguigu/demo/mappers/UserMapper.class

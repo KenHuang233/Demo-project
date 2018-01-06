@@ -1,0 +1,90 @@
+/*
+ * Copyright (c) 2017, Xuliang Huang. All rights reserved.
+ */
+
+package com.atguigu.demo.remote.implement;
+
+import com.atguigu.demo.interfaces.DemoRemoteInterface;
+import com.atguigu.demo.pojo.DubboResult;
+import com.atguigu.demo.pojo.User;
+import com.atguigu.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.atguigu.demo.pojo.Detail;
+
+public class DemoRemoteImpl implements DemoRemoteInterface {
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public String getMessageForTest(String param) {
+        return "Hello, "+param;
+    }
+
+    @Override
+    public DubboResult doRegistRemote(User user) {
+
+        String userName = user.getUserName();
+
+        boolean exists = userService.checkUserNameExists(userName);
+
+        if(exists) {
+
+            return new DubboResult(DubboResult.FAILED, null);
+
+        }else{
+
+            userService.saveUser(user);
+
+            return new DubboResult(DubboResult.OK, null);
+
+        }
+
+    }
+
+    @Override
+    public DubboResult doLoginRemote(User user) {
+
+        User loginUser = userService.getLoginUser(user);
+
+        if(loginUser == null) {
+            return new DubboResult(DubboResult.FAILED, null);
+        }else{
+            return new DubboResult(DubboResult.OK, loginUser);
+        }
+
+    }
+
+    @Override
+    public DubboResult getDetailRemote(Integer userId) {
+
+        //1.尝试查询Detail对象
+        Detail detail = userService.getDetail(userId);
+
+        //2.判断detail对象是否为null
+        if(detail == null) {
+
+            return new DubboResult(DubboResult.FAILED, null);
+
+        }else{
+
+            return new DubboResult(DubboResult.OK, detail);
+
+        }
+
+    }
+
+    @Override
+    public DubboResult modifyDetailRemote(Detail detail) {
+
+        try {
+            userService.saveOrUpdateDetail(detail);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DubboResult(DubboResult.FAILED, null);
+        }
+
+        return new DubboResult(DubboResult.OK, null);
+    }
+
+}

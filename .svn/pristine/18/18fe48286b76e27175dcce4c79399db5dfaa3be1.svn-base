@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2017, Xuliang Huang. All rights reserved.
+ */
+
+package com.atguigu.demo.pojo;
+
+import java.io.Serializable;
+
+public class DubboResult implements Serializable {
+    public static final String OK = "OK";
+    public static final String FAILED = "FAILED";
+
+    private static final long serialVersionUID = 1L;
+    private String operationResult;
+    private Object entity;
+
+    public DubboResult() {
+
+    }
+
+    public DubboResult(String operationResult, Object entity) {
+        super();
+        this.operationResult = operationResult;
+        this.entity = entity;
+    }
+
+    @Override
+    public String toString() {
+        return "DubboResult [operationResult=" + operationResult + ", entity=" + entity + "]";
+    }
+
+    public String getOperationResult() {
+        return operationResult;
+    }
+
+    public void setOperationResult(String operationResult) {
+        this.operationResult = operationResult;
+    }
+
+    public Object getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Object entity) {
+        this.entity = entity;
+    }
+}

@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2017, Xuliang Huang. All rights reserved.
+ */
+
+package com.atguigu.demo.remote.implement;
+
+import com.atguigu.demo.interfaces.DemoRemoteInterface;
+import com.atguigu.demo.pojo.DubboResult;
+import com.atguigu.demo.pojo.User;
+import com.atguigu.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class DemoRemoteImpl implements DemoRemoteInterface {
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public String getMessageForTest(String param) {
+        return "Hello, "+param;
+    }
+
+    @Override
+    public DubboResult doRegistRemote(User user) {
+
+        String userName = user.getUserName();
+
+        boolean exists = userService.checkUserNameExists(userName);
+
+        if(exists) {
+
+            return new DubboResult(DubboResult.FAILED, null);
+
+        }else{
+
+            userService.saveUser(user);
+
+            return new DubboResult(DubboResult.OK, null);
+
+        }
+
+    }
+
+}
